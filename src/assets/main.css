@@ -1,0 +1,55 @@
+/* Imports */
+
+@import url("https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&family=Heebo:wght@100..900&display=swap");
+
+/* Defaults */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* Variables */
+
+:root {
+    --color-primary: #FFDA00;
+    --color-secondary: #DC861C;
+    --color-accent: #085000;
+    --color-background: #FFFCE0;
+    --color-body-text: #160D02;
+    --font-body: "Heebo", serif;
+    --font-headings: "DynaPuff", sans-serif;
+}
+
+/* Typeography */
+
+h1, h2, h3, h4 {
+    font-family: var(--font-headings);
+    color: var(--color-accent);
+}
+
+h1 {
+    font-size: 3.5rem;
+}
+
+h2 {
+    font-size: 3rem;
+}
+
+h3 {
+    font-size: 2.5rem;
+}
+
+p, li, a {
+    font-size: 2rem;
+    font-family: var(--font-body);
+}
