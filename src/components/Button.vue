@@ -19,7 +19,7 @@ defineProps({
 })
 </script>
 
-<style>
+<style scoped>
 button {
   padding: 10px 30px;
   outline: 0;

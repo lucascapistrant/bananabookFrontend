@@ -6,7 +6,7 @@
 
 </script>
 
-<style>
+<style scoped>
     .background {
         position: absolute;
         top: 0;
