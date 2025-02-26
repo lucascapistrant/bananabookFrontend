@@ -26,6 +26,8 @@ body {
     --color-accent: #085000;
     --color-background: #FFFCE0;
     --color-body-text: #160D02;
+    --color-container: #FFF7C7;
+
     --font-body: "Heebo", serif;
     --font-headings: "DynaPuff", sans-serif;
 }
