@@ -1,5 +1,5 @@
 <template>
-  <button :class="[type, { 'block': block }]">
+  <button :class="[color, { 'block': block }]">
     <slot></slot>
   </button>
 </template>
@@ -7,7 +7,7 @@
 <script setup>
 
 defineProps({
-  type: {
+  color: {
     type: String,
     default: 'primary'
   },
