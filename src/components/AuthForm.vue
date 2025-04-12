@@ -2,6 +2,8 @@
 import Button from './Button.vue';
 import { defineProps, ref } from 'vue';
 
+import { useRouter } from 'vue-router'
+
 const props = defineProps({
     authType: String,
 })
@@ -9,6 +11,8 @@ const props = defineProps({
 const username = ref("");
 const password = ref("");
 const errorMessage = ref("");
+
+const router = useRouter();
 
 const login = async () => {
   errorMessage.value = "";
@@ -28,6 +32,8 @@ const login = async () => {
     }
 
     console.log(data.message);
+
+    router.push('/');
 
   } catch(err) {
       errorMessage.value = err.message;
