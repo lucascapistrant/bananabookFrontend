@@ -37,6 +37,7 @@ const login = async () => {
 
   } catch(err) {
       errorMessage.value = err.message;
+      console.log(errorMessage.value);
   }
 }
 
