@@ -1,20 +1,24 @@
 <script setup>
 import Button from './Button.vue';
-import {ref} from 'vue';
-
+import {ref, onMounted} from 'vue';
+import defaultProfile from '../assets/images/profilepic.png'
 import { format, formatDistanceToNow} from 'date-fns';
 
 const posts = ref([]);
 
+onMounted(() => {
+    fetchPosts();
+})
+
 const fetchPosts = async () => {
     try {
         const res = await fetch('https://banana-book-backend.vercel.app/api/posts/fetch/top', {
+            method: 'GET',
             credentials: 'include'
         })
         const data = await res.json();
         formatPostData(JSON.parse(JSON.stringify(data)).posts);
-        // posts.value = JSON.parse(JSON.stringify(data)).posts;
-        // console.log(posts.value);
+        console.log(posts.value);
     }
     catch(err) {
         console.log('Failed to fetch posts', err);
@@ -35,8 +39,6 @@ const formatPostData = (postData) => {
             userId: post.userId
         })
     }
-    console.log("Post data:", postData);
-    console.log("Posts modified data:", posts.value);
 }
 
 const formatDate = (rawDate) => {
@@ -51,37 +53,49 @@ const formatDate = (rawDate) => {
     }
 }
 
+const likePost = async (postId) => {
+    try {
+        const res = await fetch(`https://banana-book-backend.vercel.app/api/posts/${postId}/like`, {
+            method: 'POST',
+            credentials: 'include'
+        })
+
+
+    } catch(err) {
+        console.log('Failed to like post', err);
+    }
+}
+
 </script>
 
 <template>
     <h1>Posts</h1>
     <Button @click="fetchPosts">get posts</Button>
-    <div class="post">
-        <header class="post-header">
-                <div class="post-userDetails">
-                    <img class="post-profilePic" src="../assets/images/Banana.svg" alt="Profile Picture">
-                    <p class="post-username">veryCoolUsername</p>
-                </div>
-                <p class="post-date" >May 3rd, 2025</p>
-            </header>
-            <h2 class="post-title">Very cool title</h2>
-            <p class="post-body">This is the post body. I have a lot of useful things to say. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quo, voluptate?</p>
-            <img src="../assets/images/profilepic.png" alt="" class="post-img">
-            <img src="../assets/images/profilepic.png" alt="" class="post-img">
-            <img src="../assets/images/profilepic.png" alt="" class="post-img">
-    </div>
     <div class="postContainer">
         <div class="post" v-for="post in posts" :key="post.id">
             <div class="post-header">
                 <div class="post-userDetails">
-                    <img class="post-profilePic" :src="post.userInfo.profilePicture" alt="Profile Picture">
+                    <img
+                        class="post-profilePic"
+                        :src="post.userInfo.profilePicture || defaultProfile" alt="Profile Picture"
+                    />
                     <p class="post-username">{{ post.userInfo.username }}</p>
                 </div>
                 <p class="post-date" >{{ post.date }}</p>
             </div>
             <h2 class="post-title">{{  post.title }}</h2>
             <p class="post-body">{{ post.content }}</p>
-            <img class="post-img" v-for="(img, index) in post.images" :key="index" :src="img" alt="Post image" />
+            <img
+                class="post-img"
+                v-for="(img, index) in post.images"
+                :key="index"
+                :src="img"
+                alt="Post image"
+            />
+            <div class="post-likes" @click="likePost(post.id)">
+                <span style="font-size: 1.5rem; padding-right: 10px;">{{ post.likeCount }}</span>
+                <button>Like</button>
+            </div>
         </div>
     </div>
 </template>
